@@ -19,6 +19,10 @@ export async function POST(request: Request) {
                 userId
             }
         })
+        return NextResponse.json({
+            store,
+            message: "Store-model created successfull"
+        }, {status: 200})
     } catch (error) {
         console.log('[STORES_POST]', error)
         return new NextResponse("Internal Error", {status: 500})
