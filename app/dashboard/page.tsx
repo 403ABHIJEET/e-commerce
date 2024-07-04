@@ -8,7 +8,7 @@ const Page = () => {
   return (
     <>
       <div className='grid gpa-4 md:gap-8 md:grid-cols-2 lg:grid-cols-4'>
-        <Card>
+        <Card className='translate'>
           <CardHeader className='flex flex-row items-center justify-between pb-2'>
             <CardTitle>Total Revenue</CardTitle>
             <DollarSign className='h-4 w-4 text-green-500' />
