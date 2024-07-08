@@ -33,7 +33,7 @@ const DashboardNavigation = () => {
         links.map((item) => (
           <Link key={item.name} href={item.href} className={cn(
             item.href === pathname ? "text-black" : 
-            "text-muted-foreground hover:text-foreground hover:scale-125 transition-all ease-in-out"
+            "text-muted-foreground hover:text-foreground"
           )}>
             {item.name}
           </Link>

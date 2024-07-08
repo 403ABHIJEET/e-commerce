@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { MoreHorizontal, PlusCircle, UserIcon } from 'lucide-react'
+import { Delete, Edit2, MoreHorizontal, PlusCircle, Trash2, UserIcon } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 
@@ -56,8 +56,8 @@ const Page = () => {
                                         <DropdownMenuContent align='center'>
                                             <DropdownMenuLabel>Actions</DropdownMenuLabel>
                                             <DropdownMenuSeparator />
-                                            <DropdownMenuItem>Item</DropdownMenuItem>
-                                            <DropdownMenuItem>Delete</DropdownMenuItem>
+                                            <DropdownMenuItem>Edit <Edit2 className='w-4 h-4 ml-auto'/></DropdownMenuItem>
+                                            <DropdownMenuItem>Delete <Trash2 className='w-4 h-4 ml-auto' /></DropdownMenuItem>
                                         </DropdownMenuContent>
                                     </DropdownMenu>
                                 </TableCell>
