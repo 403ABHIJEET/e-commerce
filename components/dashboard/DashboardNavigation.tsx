@@ -26,18 +26,23 @@ const links = [
 const DashboardNavigation = () => {
 
   const pathname = usePathname()
-
+  let activePath = "/dashboard/"
+  let idx = activePath.length;
+  while (idx < pathname.length && pathname[idx] != '/') {
+    activePath += pathname[idx]
+    idx++;
+  }
   return (
     <>
       {
         links.map((item) => (
-          <Link key={item.name} href={item.href} className={cn(
-            item.href === pathname ? "text-black" : 
-            "text-muted-foreground hover:text-foreground"
+          <Link key={item.name} href={item.href} className={cn("text-center",
+            item.href === activePath ? "text-black" :
+              "text-muted-foreground hover:text-foreground hover:scale-125 transition-all ease-in-out"
           )}>
             {item.name}
           </Link>
-        )) 
+        ))
       }
     </>
   )

@@ -1,27 +1,41 @@
 'use client'
-import { createProduct } from '@/app/actions'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Switch } from '@/components/ui/switch'
-import { Textarea } from '@/components/ui/textarea'
-import { UploadDropzone } from '@/lib/uploadthing'
-import { ChevronLeft, DivideIcon, XIcon } from 'lucide-react'
-import Link from 'next/link'
-import React, { useState } from 'react'
-import { useFormState } from 'react-dom'
-import { useForm } from '@conform-to/react'
-import { parseWithZod } from '@conform-to/zod'
-import { productSchema } from '@/lib/zodSchemas'
-import Image from 'next/image'
-import { categories } from '@/lib/categories'
-import { SubmitButton } from '@/components/SubmitButton'
+import { ChevronLeft, XIcon } from "lucide-react"
+import { Button } from "../ui/button"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card"
+import { Label } from "../ui/label"
+import { Input } from "../ui/input"
+import { Textarea } from "../ui/textarea"
+import { Switch } from "../ui/switch"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
+import { UploadDropzone } from "@/lib/uploadthing"
+import { SubmitButton } from "../SubmitButton"
+import { useState } from "react"
+import { useFormState } from "react-dom"
+import { useForm } from "@conform-to/react"
+import { parseWithZod } from "@conform-to/zod"
+import { editProduct } from "@/app/actions"
+import { productSchema } from "@/lib/zodSchemas"
+import Image from "next/image"
+import { categories } from "@/lib/categories"
+import Link from "next/link"
+import { type $Enums } from "@prisma/client"
 
-const Page = () => {
-    const [images, setImages] = useState<string[]>([])
-    const [lastResult, action] = useFormState(createProduct, undefined)
+interface iAppProps {
+    data: {
+        id: string;
+        name: string;
+        description: string;
+        status: $Enums.ProductStatus;
+        price: number;
+        images: string[];
+        category: $Enums.Category;
+        isFeatured: boolean;
+    }
+}
+
+export function EditForm({ data }: iAppProps) {
+    const [images, setImages] = useState<string[]>(data.images)
+    const [lastResult, action] = useFormState(editProduct, undefined)
     const [form, fields] = useForm({
         lastResult,
         onValidate({ formData }) {
@@ -35,15 +49,17 @@ const Page = () => {
         setImages(images.filter((_, i) => i !== idx))
     }
 
+
     return (
         <form action={action} id={form.id} onSubmit={form.onSubmit}>
+            <input type="hidden" name="productId" value={data.id} />
             <div className="flex items-center gap-4">
                 <Button variant='outline' size='icon' asChild>
                     <Link href='/dashboard/products'>
                         <ChevronLeft className='w-4 h-4' />
                     </Link>
                 </Button>
-                <h1 className='text-xl font-semibold tracking-tight'>New Product</h1>
+                <h1 className='text-xl font-semibold tracking-tight'>Edit Product</h1>
             </div>
             <Card className='mt-5'>
                 <CardHeader>
@@ -58,7 +74,7 @@ const Page = () => {
                                 type='text'
                                 key={fields.name.key}
                                 name={fields.name.name}
-                                defaultValue={fields.name.initialValue}
+                                defaultValue={data.name}
                                 className='w-full'
                                 placeholder='Product name'
                             />
@@ -69,7 +85,7 @@ const Page = () => {
                             <Textarea
                                 key={fields.description.key}
                                 name={fields.description.name}
-                                defaultValue={fields.description.initialValue}
+                                defaultValue={data.description}
                                 placeholder='Write your description right here...'
                             />
                             <p className='text-red-500'>{fields.description.errors}</p>
@@ -80,7 +96,7 @@ const Page = () => {
                                 type='number'
                                 key={fields.price.key}
                                 name={fields.price.name}
-                                defaultValue={fields.price.initialValue}
+                                defaultValue={data.price}
                                 className='w-full'
                                 placeholder='$55'
                             />
@@ -91,13 +107,15 @@ const Page = () => {
                             <Switch
                                 key={fields.isFeatured.key}
                                 name={fields.isFeatured.name}
-                                defaultValue={fields.isFeatured.initialValue}
+                                checked={data.isFeatured}
                             />
                             <p className='text-red-500'>{fields.isFeatured.errors}</p>
                         </div>
                         <div className="flex flex-col gap-3">
                             <Label>Status</Label>
-                            <Select key={fields.status.key} name={fields.status.name} defaultValue={fields.status.initialValue}>
+                            <Select key={fields.status.key}
+                                name={fields.status.name}
+                                defaultValue={data.status}>
                                 <SelectTrigger>
                                     <SelectValue placeholder="Select Status" />
                                 </SelectTrigger>
@@ -111,7 +129,9 @@ const Page = () => {
                         </div>
                         <div className="flex flex-col gap-3">
                             <Label>Category</Label>
-                            <Select key={fields.category.key} name={fields.category.name} defaultValue={fields.category.initialValue}>
+                            <Select key={fields.category.key}
+                                name={fields.category.name}
+                                defaultValue={data.category}>
                                 <SelectTrigger>
                                     <SelectValue placeholder="Select Category" />
                                 </SelectTrigger>
@@ -175,11 +195,9 @@ const Page = () => {
                     </div>
                 </CardContent>
                 <CardFooter>
-                    <SubmitButton text="Create Product" />
+                    <SubmitButton text="Edit Product" />
                 </CardFooter>
             </Card>
         </form>
     )
 }
-
-export default Page
