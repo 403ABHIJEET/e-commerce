@@ -78,7 +78,11 @@ export default async function Page() {
                                                             <Edit2 className='w-4 h-4 hidden sm:block' />
                                                         </Link>
                                                     </DropdownMenuItem>
-                                                    <DropdownMenuItem>Delete <Trash2 className='w-4 h-4 ml-auto hidden sm:block' /></DropdownMenuItem>
+                                                    <DropdownMenuItem>
+                                                        <Link href={`/dashboard/products/delete/${product.id}`} className='w-full flex justify-between'>
+                                                            Delete <Trash2 className='w-4 h-4 ml-auto hidden sm:block' />
+                                                        </Link>
+                                                    </DropdownMenuItem>
                                                 </DropdownMenuContent>
                                             </DropdownMenu>
                                         </TableCell>

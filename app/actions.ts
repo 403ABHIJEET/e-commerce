@@ -70,9 +70,28 @@ export async function editProduct(prevState: any, formData: FormData) {
             description: submission.value.description,
             price: submission.value.price,
             category: submission.value.category,
-            isFeatured: submission.value.isFeatured,
+            isFeatured: submission.value.isFeatured ?? false,
             status: submission.value.status,
             images: flattenUrl
+        }
+    })
+
+    redirect("/dashboard/products")
+}
+
+export async function deleteProduct(formData: FormData) {
+    const { getUser } = getKindeServerSession()
+    const user = await getUser()
+
+    if(!user)  {
+        return redirect("/")
+    }
+
+    const productId = formData.get("productId") as string
+
+    await prisma.product.delete({
+        where: {
+            id: productId
         }
     })
 
