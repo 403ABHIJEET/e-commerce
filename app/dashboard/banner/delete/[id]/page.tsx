@@ -17,13 +17,13 @@ export default function Page({params}: {params: {id: string}}) {
                 </CardHeader>
                 <CardFooter className="w-full flex justify-between">
                     <Button variant="secondary" >
-                        <Link href={`/dashboard/products`}>
+                        <Link href={`/dashboard/banner`}>
                             Cancel
                         </Link>
                     </Button>
                     <form action={deleteBanner}>
                         <input type="hidden" name="bannerId" value={params.id} />
-                        <SubmitButton text="Delete product" variant="destructive" />
+                        <SubmitButton text="Delete Banner" variant="destructive" />
                     </form>
                 </CardFooter>
             </Card>
