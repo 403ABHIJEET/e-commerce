@@ -56,7 +56,9 @@ export default async function Page() {
                                 data.map((product) => (
                                     <TableRow key={product.id}>
                                         <TableCell>
-                                            <Image height={64} width={64} src={product.images[0]} alt="Product image" className='rounded-md object-cover h-16 w-16' />
+                                            <Image height={64} width={64} src={product.images[0]} 
+                                                alt="Product image" className='rounded-md object-cover h-16 w-16' 
+                                            />
                                         </TableCell>
                                         <TableCell>{product.name}</TableCell>
                                         <TableCell>{product.status}</TableCell>
