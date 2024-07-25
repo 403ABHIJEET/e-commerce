@@ -14,9 +14,9 @@ import {
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
 import { redirect } from 'next/navigation'
 import {LogoutLink} from "@kinde-oss/kinde-auth-nextjs/components";
+import { UserDropdown } from '@/components/storefront/UserDropdown'
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-
     const { getUser } = getKindeServerSession()
     const user = await getUser()
 
@@ -42,20 +42,11 @@ export default async function DashboardLayout({ children }: { children: React.Re
                         </nav>
                     </SheetContent>
                 </Sheet>
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant='secondary' size='icon' className='rounded-full'>
-                            <CircleUser className='h-5 w-5' />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align='end'>
-                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>
-                            <LogoutLink>Log out</LogoutLink>
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <UserDropdown
+                    name={user.given_name as string}
+                    email={user.email as string}
+                    image={user.picture ?? `https://avatar.vercel.sh/rauchg/${user.given_name}`}  
+                />
             </header>
             <main className='my-5'>{children}</main>
         </div>

@@ -26,6 +26,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.11",
+    "embla-carousel-react": "^8.1.7",
     "lucide-react": "^0.400.0",
     "next": "14.2.4",
     "react": "^18",
@@ -36,6 +37,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
