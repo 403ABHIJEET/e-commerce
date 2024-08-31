@@ -8,7 +8,8 @@ async function getData() {
         },
         orderBy: {
             createdAt: "desc"
-        }
+        },
+        take: 3
     })
     return data
 }
